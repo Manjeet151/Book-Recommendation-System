@@ -175,7 +175,7 @@
         <div class="form-container">
             <h2>Find Your Next Favorite Book</h2>
             <form method="POST" action="/recommend">
-                <input type="text" name="user_input" class="form-control" placeholder="Enter a book title..." required>
+                <input type="text" name="user_input" class="form-control" placeholder="Enter a Subject name (e.g. Operating system, compiler, Machine Learning, DBMS, Discrete Maths)..." required>
                 <input type="submit" class="btn-primary" value="Get Recommendations">
             </form>
         </div>
@@ -191,9 +191,7 @@
                         <h3>{{ book[0] }}</h3>
                         <p><strong>Author:</strong> {{ book[1] }}</p>
                         <p><strong>Rating:</strong> {{ book[4] }}</p>
-                        {% if book[3] %}
-                        <a href="{{ book[3] }}" class="btn-download" target="_blank">Download</a>
-                        {% endif %}
+                        
                     </div>
                 </div>
                 {% endfor %}

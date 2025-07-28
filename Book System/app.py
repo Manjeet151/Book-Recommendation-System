@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
+from rapidfuzz import process
 app = Flask(__name__)
 
 books = pd.read_csv("Books.csv", encoding="latin1")#latin1 encoding helps your computer understand 
@@ -28,17 +28,25 @@ tfidf_matrix = tfidf.fit_transform(book_data['combined_tags'].fillna(""))
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
 
+
+
 def get_recommendations_by_title(title, cosine_sim=cosine_sim, top_n=5):
     lower_title = title.lower()
-    if lower_title not in book_data['lower_title'].values:
-        return []
-    idx = book_data[book_data['lower_title'] == lower_title].index[0]
+
+    # Use fuzzy matching to find closest title
+    all_titles = book_data['lower_title'].tolist()
+    closest_title, score, idx = process.extractOne(lower_title, all_titles, score_cutoff=60)
+
+    if closest_title is None:
+        return pd.DataFrame()  # no close match found
+
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:top_n+1]  # Exclude the first (itself)
+    sim_scores = sim_scores[1:top_n+1]  # skip the input book itself
     book_indices = [i[0] for i in sim_scores]
-    recommendations = book_data.iloc[book_indices][['title', 'author', 'image-url', 'download-url', 'rating']]
-    return recommendations
+    
+    return book_data.iloc[book_indices][['title', 'author', 'image-url', 'rating']]
+
 
 @app.route('/')
 def home():

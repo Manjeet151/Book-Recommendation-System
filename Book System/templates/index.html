@@ -169,7 +169,7 @@
 <body>
     <header>
         <h1>Book Recommender System</h1>
-        <p>Discover and download your next favorite read</p>
+        <p>Find the Right Books for Every Semester</p>
     </header>
 
     <nav>
@@ -185,11 +185,7 @@
             <h4>{{ book[0] }}</h4>
             <p><strong>Author:</strong> {{ book[1] }}</p>
             <p class="rating"><strong>Rating:</strong> {{ book[4] }}</p>
-            {% if book[3] %}
-            <a href="{{ book[3] }}" class="btn-download" target="_blank">Download</a>
-            {% else %}
-            <p class="no-download">No download available</p>
-            {% endif %}
+            
         </div>
         {% endfor %}
     </div>
