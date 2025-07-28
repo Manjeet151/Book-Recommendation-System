@@ -3,10 +3,8 @@
 A web-based Book Recommendation System built using **Python, Flask, Pandas, Scikit-learn, and RapidFuzz**. It provides personalized book suggestions based on tags using **TF-IDF vectorization** and **cosine similarity**.
 
 ## 🚀 Live Demo
-🔗 [View on Render](https://book-recommendation-system-1-q0ae.onrender.com/)  
+🔗 Deployed the complete system at: https://book-recommendation-system-4-01hq.onrender.com/)  
 *(Free instance may take a few seconds to load)*
-
----
 
 ## ✨ Features
 
@@ -50,7 +48,3 @@ book-recommendation-system/
 - Applies **TF-IDF vectorization** on tags
 - Computes **cosine similarity** matrix
 - Uses **fuzzy matching** to handle partial/misspelled input titles
-
---
-
-
